@@ -1,5 +1,5 @@
 # Transformation Dependency Intelligence
-**Assignment 10 — Modus Enterprise AI Build Challenge**
+
 
 An AI application that identifies dependencies, resource conflicts, and sequencing
 risks across a transformation programme with multiple initiatives — and can
