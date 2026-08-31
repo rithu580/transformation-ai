@@ -18,7 +18,6 @@ import streamlit.components.v1 as components
 
 from database import (
     init_db, add_initiative, get_all_initiatives, get_all_relationships,
-    delete_initiative, get_initiative_by_id
 )
 from ai_engine import (
     analyse_initiative, compute_risk_summary, compute_sequencing, answer_question,
@@ -183,17 +182,7 @@ with tab1:
         } for i in initiatives])
         st.dataframe(df, use_container_width=True, hide_index=True)
 
-        del_col1, del_col2 = st.columns([3, 1])
-        with del_col1:
-            to_delete = st.selectbox("Remove an initiative", ["-- select --"] + [i["name"] for i in initiatives])
-        with del_col2:
-            st.write("")
-            st.write("")
-            if st.button("🗑️ Delete") and to_delete != "-- select --":
-                match = next(i for i in initiatives if i["name"] == to_delete)
-                delete_initiative(match["id"])
-                st.success(f"Deleted '{to_delete}'. Refresh to update views.")
-                st.rerun()
+        st.info("Initiatives are stored permanently in the programme database.")
     else:
         st.warning("No initiatives yet. Add one above, or run `python seed_data.py` for a demo dataset.")
 
