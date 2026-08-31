@@ -204,3 +204,6 @@ cycle by guessing an arbitrary order.
 | Data persists across restart | ✅ | SQLite file confirmed present on disk after process exit |
 | Not hardcoded per-demo | ✅ | `analyse_initiative()` is fully generic — no initiative names in the logic |
 | Source code + setup instructions | ✅ | This README |
+
+12.For Live Demo
+https://transformation-ai-2tusxg59ewkw9daavntdbz.streamlit.app/
