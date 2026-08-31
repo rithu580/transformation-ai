@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: ##fff1f7;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": 22, "label": "Data Platform", "shape": "dot", "title": "Build a centralised cloud data platform to unify customer, sales, and inventory data across all stores."}, {"color": "#97c2fc", "id": 23, "label": "Integration Programme", "shape": "dot", "title": "Establish standard APIs and middleware so all systems (POS, ERP, CRM) can talk to each other reliably."}, {"color": "#97c2fc", "id": 24, "label": "ERP Replacement", "shape": "dot", "title": "Replace the legacy ERP system with a modern cloud ERP to improve finance and supply chain visibility."}, {"color": "#97c2fc", "id": 25, "label": "AI Customer Service", "shape": "dot", "title": "Deploy an AI chatbot and virtual assistant to handle customer queries across web, app, and store kiosks."}, {"color": "#97c2fc", "id": 26, "label": "New Digital Channel", "shape": "dot", "title": "Launch a new mobile app and personalised online shopping experience for customers."}, {"color": "#97c2fc", "id": 27, "label": "Supply Chain Automation", "shape": "dot", "title": "Automate demand forecasting and warehouse replenishment using AI-driven inventory models."}, {"color": "#97c2fc", "id": 28, "label": "Workforce Transformation", "shape": "dot", "title": "Reskill store and support staff for new digital tools and AI-augmented workflows, and redesign roles."}, {"color": "#97c2fc", "id": 29, "label": "AI Governance Framework", "shape": "dot", "title": "Establish policies, oversight, and risk controls for all AI systems being deployed across the business."}, {"color": "#97c2fc", "id": 30, "label": "Loyalty \u0026 Personalisation Engine", "shape": "dot", "title": "AI-driven personalised offers and a revamped loyalty programme based on unified customer behaviour data."}, {"color": "#97c2fc", "id": 31, "label": "Cybersecurity Uplift", "shape": "dot", "title": "Modernise identity, access management, and threat monitoring across all new digital and cloud systems."}, {"color": "#97c2fc", "id": 32, "label": "Finance Analytics Modernisation", "shape": "dot", "title": "Build AI-assisted forecasting and reporting on top of the new ERP\u0027s financial data."}, {"color": "#97c2fc", "id": 33, "label": "Store Operations AI", "shape": "dot", "title": "AI-powered scheduling and task management for in-store staff, tied to real-time footfall and sales data."}, {"color": "#97c2fc", "id": 34, "label": "Fraud \u0026 Risk Detection", "shape": "dot", "title": "Real-time fraud detection across online and in-store transactions using AI models on customer and financial data."}, {"color": "#97c2fc", "id": 35, "label": "Supplier Collaboration Portal", "shape": "dot", "title": "A digital portal for suppliers to view forecasts and coordinate replenishment directly with NorthPeak\u0027s systems."}, {"color": "#97c2fc", "id": 36, "label": "Fraud Detection AI", "shape": "dot", "title": "Real-time fraud detection using AI on transaction data Customer Data, Financial Data\n"}, {"color": "#97c2fc", "id": 37, "label": "AI Customer Churn Prediction", "shape": "dot", "title": "Predict customers likely to leave using purchase history, loyalty activity and engagement data, and generate targeted retention recommendations."}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "#E67E22", "from": 30, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 30, "label": "Unified Data Access", "title": "depends on: Unified Data Access", "to": 22}, {"arrows": "to", "color": "#E74C3C", "from": 22, "label": "Cloud Infrastructure", "title": "conflicts (shared resource): Cloud Infrastructure", "to": 31}, {"arrows": "to", "color": "#E67E22", "from": 33, "label": "Sales Data", "title": "depends on: Sales Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 34, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E74C3C", "from": 23, "label": "Cloud Infrastructure", "title": "conflicts (shared resource): Cloud Infrastructure", "to": 22}, {"arrows": "to", "color": "#E74C3C", "from": 23, "label": "Cloud Infrastructure", "title": "conflicts (shared resource): Cloud Infrastructure", "to": 31}, {"arrows": "to", "color": "#E67E22", "from": 35, "label": "System Connectivity", "title": "depends on: System Connectivity", "to": 23}, {"arrows": "to", "color": "#E67E22", "from": 24, "label": "Integration Programme", "title": "depends on: Integration Programme", "to": 23}, {"arrows": "to", "color": "#E67E22", "from": 32, "label": "Financial Data", "title": "depends on: Financial Data", "to": 24}, {"arrows": "to", "color": "#E67E22", "from": 32, "label": "Modern ERP", "title": "depends on: Modern ERP", "to": 24}, {"arrows": "to", "color": "#E67E22", "from": 34, "label": "Financial Data", "title": "depends on: Financial Data", "to": 24}, {"arrows": "to", "color": "#E67E22", "from": 25, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 25, "label": "Unified Data Access", "title": "depends on: Unified Data Access", "to": 22}, {"arrows": "to", "color": "#E74C3C", "from": 25, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 25, "label": "Unified Data Access", "title": "conflicts (shared resource): Unified Data Access", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 25, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 34}, {"arrows": "to", "color": "#E67E22", "from": 26, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 26, "label": "Unified Data Access", "title": "depends on: Unified Data Access", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 26, "label": "System Connectivity", "title": "depends on: System Connectivity", "to": 23}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 25}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "Unified Data Access", "title": "conflicts (shared resource): Unified Data Access", "to": 25}, {"arrows": "to", "color": "#E67E22", "from": 30, "label": "App Usage Data", "title": "depends on: App Usage Data", "to": 26}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "Unified Data Access", "title": "conflicts (shared resource): Unified Data Access", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 34}, {"arrows": "to", "color": "#E74C3C", "from": 26, "label": "System Connectivity", "title": "conflicts (shared resource): System Connectivity", "to": 35}, {"arrows": "to", "color": "#E67E22", "from": 27, "label": "Inventory Data", "title": "depends on: Inventory Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 27, "label": "Modern ERP", "title": "depends on: Modern ERP", "to": 24}, {"arrows": "to", "color": "#E67E22", "from": 27, "label": "Supply Chain Data", "title": "depends on: Supply Chain Data", "to": 24}, {"arrows": "to", "color": "#E74C3C", "from": 27, "label": "Modern ERP", "title": "conflicts (shared resource): Modern ERP", "to": 32}, {"arrows": "to", "color": "#E67E22", "from": 35, "label": "Automated Replenishment", "title": "depends on: Automated Replenishment", "to": 27}, {"arrows": "to", "color": "#E74C3C", "from": 28, "label": "Change Management Team", "title": "conflicts (shared resource): Change Management Team", "to": 24}, {"arrows": "to", "color": "#E67E22", "from": 33, "label": "Reskilled Workforce", "title": "depends on: Reskilled Workforce", "to": 28}, {"arrows": "to", "color": "#E67E22", "from": 36, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 36, "label": "Financial Data", "title": "depends on: Financial Data", "to": 24}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 25}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 26}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Financial Data", "title": "conflicts (shared resource): Financial Data", "to": 32}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 34}, {"arrows": "to", "color": "#E74C3C", "from": 36, "label": "Financial Data", "title": "conflicts (shared resource): Financial Data", "to": 34}, {"arrows": "to", "color": "#E67E22", "from": 37, "label": "Sales Data", "title": "depends on: Sales Data", "to": 22}, {"arrows": "to", "color": "#E67E22", "from": 37, "label": "Customer Data", "title": "depends on: Customer Data", "to": 22}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 25}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 26}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 30}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Sales Data", "title": "conflicts (shared resource): Sales Data", "to": 33}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 34}, {"arrows": "to", "color": "#E74C3C", "from": 37, "label": "Customer Data", "title": "conflicts (shared resource): Customer Data", "to": 36}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"stabilization": true, "barnesHut": {"gravitationalConstant": -8000}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
